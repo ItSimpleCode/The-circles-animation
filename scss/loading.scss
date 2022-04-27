@@ -1,0 +1,57 @@
+$color-1: #0c0c0c;
+$shapes-colors: (#f44336, #3f51b5, #009688, #ffeb3b, #ff9800);
+$dimension: 200px;
+$duration: 5s;
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: $color-1;
+  font-family: poppins;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading {
+  width: $dimension;
+  height: $dimension;
+  position: relative;
+
+  span {
+    border: 5px solid;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    @for $v from 1 through 5 {
+      &:nth-child(#{$v}) {
+        width: $dimension - (($dimension / 6) * $v);
+        height: $dimension - (($dimension / 6) * $v);
+        border-color: transparent nth($shapes-colors, $v) transparent nth($shapes-colors, $v);
+        animation: rot $duration #{($duration / 30) * $v} infinite ease-in-out;
+      }
+    }
+
+    @keyframes rot {
+      50% {
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
+    }
+  }
+}
+
+.text {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
